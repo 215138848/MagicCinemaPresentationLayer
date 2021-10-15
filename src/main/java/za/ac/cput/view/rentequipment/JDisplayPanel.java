@@ -1,5 +1,10 @@
 package za.ac.cput.view.rentequipment;
 
+import okhttp3.MediaType;
+import za.ac.cput.entity.rentalcart.Cart;
+import za.ac.cput.service.CartFunctionality;
+import za.ac.cput.util.GenericHelper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,12 +12,21 @@ import java.awt.event.ActionListener;
 
 public class JDisplayPanel extends JPanel implements ActionListener {
 
+
     private JLabel itemName, itemPrice;
     private String itemPath;
     private JButton addToCart;
     private ImageIcon image;
+    private JComboBox quantityComboBox;
+    private double itemCost;
+    protected final int quantity;
+    private String customerId, equipmentId;
 
-    public JDisplayPanel(String itemName, String itemPath, double itemPrice) {
+    public JDisplayPanel(String itemName, String itemPath, double itemPrice, int quantity, String equipmentId) {
+        this.itemCost = itemPrice;
+        this.quantity = quantity;
+        this.equipmentId = equipmentId;
+
         this.itemName = new JLabel(itemName);
         this.itemPrice = new JLabel(String.valueOf(itemPrice), SwingConstants.CENTER);
         this.itemPath = itemPath;
@@ -43,9 +57,22 @@ public class JDisplayPanel extends JPanel implements ActionListener {
         panelNorth.add(this.itemName);
 
 
-        JPanel panelCenter = new JPanel();
+        JPanel panelCenter = new JPanel(new GridLayout(1,2));
         panelCenter.setBackground(Color.WHITE);
         panelCenter.add(this.itemPrice);
+
+        quantityComboBox = new JComboBox();
+        if(quantity > 0) {
+            for (int x = 0; x <= quantity; x++) {
+                quantityComboBox.addItem(x);
+            }
+        }
+        int selectedIndex = 0;
+        quantityComboBox.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+
+            }});
+        panelCenter.add(quantityComboBox);
 
         JPanel boxContainerOuter = new JPanel();
         boxContainerOuter.setLayout(new BorderLayout());
@@ -63,7 +90,8 @@ public class JDisplayPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Add To Cart")) {
-            System.out.println("Add " + itemName.getText() + " to cart");
+            Integer quantityIndex = (Integer) quantityComboBox.getSelectedItem();
+            CartFunctionality.saveCart(equipmentId, itemCost, quantityIndex);
         }
 
     }

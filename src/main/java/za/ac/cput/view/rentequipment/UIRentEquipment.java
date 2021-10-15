@@ -4,6 +4,8 @@ import za.ac.cput.entity.Client;
 import za.ac.cput.entity.catelag.Equipment;
 import za.ac.cput.service.CustomerFunctionality;
 import za.ac.cput.service.EquipmentFunctionality;
+import za.ac.cput.util.GenericHelper;
+import za.ac.cput.view.cart.UICart;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,8 +18,7 @@ import java.util.Arrays;
 public class UIRentEquipment extends JFrame implements ActionListener {
     private JMenuBar mainMenu;
     private ImageIcon iconLogo;
-    private JLabel lblTitle, lblCurrentUser, lblHeading;
-    private JButton btnLogOut;
+    private JLabel  lblHeading;
     private ArrayList<Client> ClientList;
 
     public UIRentEquipment() {
@@ -75,7 +76,9 @@ public class UIRentEquipment extends JFrame implements ActionListener {
                     JDisplayPanel data = new JDisplayPanel(
                             equipmentArrayList.get(x).getMake() + " " + equipmentArrayList.get(x).getModel(),
                             equipmentArrayList.get(x).getImagePath(),
-                            equipmentArrayList.get(x).getRentalPrice());
+                            equipmentArrayList.get(x).getRentalPrice(),
+                            equipmentArrayList.get(x).getQuantity(),
+                            equipmentArrayList.get(x).getEquipmentID());
 
                     panelCenterData.add(data);
                 }
@@ -94,16 +97,13 @@ public class UIRentEquipment extends JFrame implements ActionListener {
 
         panelCenterHolder.add(filterHolder, BorderLayout.NORTH);
 
-
-
-
-
-
         for (int x =0; x < equipmentArrayList.size(); x++) {
             JDisplayPanel data = new JDisplayPanel(
                     equipmentArrayList.get(x).getMake() + " " + equipmentArrayList.get(x).getModel(),
                     equipmentArrayList.get(x).getImagePath(),
-                    equipmentArrayList.get(x).getRentalPrice());
+                    equipmentArrayList.get(x).getRentalPrice(),
+                    equipmentArrayList.get(x).getQuantity(),
+                    equipmentArrayList.get(x).getEquipmentID());
 
             panelCenterData.add(data);
         }
@@ -165,7 +165,20 @@ public class UIRentEquipment extends JFrame implements ActionListener {
         panelWest.setPreferredSize(new Dimension(200, 300));
         JLabel panelWestLabelUser = new JLabel("SELECT CURRENT CUSTOMER:");
         JComboBox comboUsers = new JComboBox(ClientNameList);
+        GenericHelper.createUserTracker(ClientList.get(0).getClientID());
+        comboUsers.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = 0;
+                selectedIndex = comboUsers.getSelectedIndex();
+                GenericHelper.createUserTracker(ClientList.get(selectedIndex).getClientID());
+            }});
         JButton goToCart = new JButton("Go to cart");
+        goToCart.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                new UICart(ClientList.get(comboUsers.getSelectedIndex()).getClientID());
+                dispose();
+            }
+        });
         JButton backButton = new JButton("Go To Dashboard");
 
         panelWest.add(panelWestLabelUser);

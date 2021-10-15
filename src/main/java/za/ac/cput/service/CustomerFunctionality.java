@@ -8,8 +8,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import za.ac.cput.entity.Client;
-import za.ac.cput.entity.catelag.Equipment;
-import za.ac.cput.entity.catelag.EquipmentCategory;
 
 import java.io.IOException;
 import java.util.ArrayList;
