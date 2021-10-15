@@ -3,6 +3,7 @@ package za.ac.cput.service;
 import com.google.gson.Gson;
 import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONObject;
+import kong.unirest.json.JSONString;
 import za.ac.cput.entity.catelag.Equipment;
 
 import okhttp3.*;
@@ -91,6 +92,19 @@ public class EquipmentFunctionality {
                 System.out.println(e.toString());
             }
             return equipmentList;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String readNameById(String equipmentId) {
+        try {
+            final String URL = "http://localhost:8080/equipment/readNameById/" + equipmentId;
+            String responseBody = run(URL);
+            System.out.println(responseBody);
+            return responseBody;
 
         } catch (IOException e) {
             e.printStackTrace();

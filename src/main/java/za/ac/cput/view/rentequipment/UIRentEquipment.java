@@ -6,6 +6,7 @@ import za.ac.cput.service.CustomerFunctionality;
 import za.ac.cput.service.EquipmentFunctionality;
 import za.ac.cput.util.GenericHelper;
 import za.ac.cput.view.cart.UICart;
+import za.ac.cput.view.dashboard.sales.UIDashboard;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -180,6 +181,11 @@ public class UIRentEquipment extends JFrame implements ActionListener {
             }
         });
         JButton backButton = new JButton("Go To Dashboard");
+        backButton.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                UIDashboard dashboard = new UIDashboard();
+                dispose();
+            }});
 
         panelWest.add(panelWestLabelUser);
         panelWest.add(comboUsers);

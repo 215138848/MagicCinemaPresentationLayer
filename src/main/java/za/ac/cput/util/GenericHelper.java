@@ -2,8 +2,14 @@ package za.ac.cput.util;
 
 import java.io.*;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class GenericHelper {
+
+    public static String generateId() {
+
+        return UUID.randomUUID().toString();
+    }
 
     public static void createUserTracker(String currentId) {
         String file = "2864437280.txt";

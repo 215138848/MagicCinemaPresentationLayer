@@ -1,5 +1,7 @@
 package za.ac.cput.view.general;
 
+import za.ac.cput.view.rentequipment.UIRentEquipment;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,8 +13,10 @@ public class SideNavigationBar extends JPanel implements ActionListener {
     private ImageIcon iconLogo, iconDashboard, iconCustomer, iconRental, iconAbout, iconCurrentUser, iconLogout;
     private JButton btnLogout;
     private Color background, buttonText, addictionColor;
+    private JFrame jFrame;
 
-    public SideNavigationBar(String currentUser, String currentUserAccess, String imagePath, String activeMenu) {
+    public SideNavigationBar(String currentUser, String currentUserAccess, String imagePath, String activeMenu, JFrame jFrame) {
+        this.jFrame = jFrame;
         background = new Color(186,39,94);
         buttonText = Color.WHITE;
         addictionColor = new Color(166, 23, 76);
@@ -138,7 +142,8 @@ public class SideNavigationBar extends JPanel implements ActionListener {
             System.out.println("Add New Customer");
         }
         else if(e.getActionCommand().equals("Rent Equipment")) {
-            System.out.println("Rent Equipment");
+            UIRentEquipment rentEquipment = new UIRentEquipment();
+            this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("About")) {
             System.out.println("GO TO ABOUT");
