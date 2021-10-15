@@ -82,15 +82,9 @@ public class RentalFunctionality {
         }
     }
 
-    public static void saveRental(String clientId, String equipmentId, String employeeNumber, String estimatedReturnDate,
-                                  double costOverTime, int daysOverdue, String returnDate, double penalty, double price, int quantity,
-                                    double rentCost, double finalCost) {
+    public static void saveRental(EquipmentRental rental) {
         try {
             final String URL = "http://localhost:8080/rental/rent";
-            String customerId = GenericHelper.getUserName();
-            EquipmentRental rental = new EquipmentRentalFactory().createEquipmentRental(
-                    clientId,equipmentId,employeeNumber, estimatedReturnDate, returnDate, costOverTime, daysOverdue,
-                    penalty, quantity, rentCost, finalCost);
             Gson g = new Gson();
             String jsonString = g.toJson(rental);
             String r = post(URL, jsonString);
