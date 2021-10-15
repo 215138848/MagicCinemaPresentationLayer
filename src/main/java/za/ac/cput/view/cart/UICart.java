@@ -2,9 +2,11 @@ package za.ac.cput.view.cart;
 
 import za.ac.cput.entity.rent.EquipmentRental;
 import za.ac.cput.entity.rentalcart.Cart;
+import za.ac.cput.factory.EquipmentRentalFactory;
 import za.ac.cput.service.CartFunctionality;
 import za.ac.cput.service.EquipmentFunctionality;
 import za.ac.cput.service.RentalFunctionality;
+import za.ac.cput.util.GenericHelper;
 import za.ac.cput.view.rentequipment.UIRentEquipment;
 
 import javax.swing.*;
@@ -92,8 +94,10 @@ public class UICart extends JFrame implements ActionListener {
                 if (JOptionPane.showConfirmDialog(null, "Are you sure you want to rent your cart?", "WARNING",
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     for(Cart cart: CustomerCart) {
-                        RentalFunctionality.saveRental(customerId, cart.getEquipmentId(), "employeeN", "ERD", 0, 0,
-                                "", 15.20, cart.getSubtotal(), cart.getQuantity(), 0, 0);
+                        EquipmentRental rental = EquipmentRentalFactory.createEquipmentRental(
+                                customerId, cart.getEquipmentId(), GenericHelper.getEmployeeId(), "EST END DATE", "END DATE", 100, 2, 15.2, cart.getQuantity(), cart.getSubtotal(),
+                                 (15.2 * 2) + cart.getSubtotal());
+                        RentalFunctionality.saveRental(rental);
                     }
                     new UIRentEquipment();
                     dispose();
