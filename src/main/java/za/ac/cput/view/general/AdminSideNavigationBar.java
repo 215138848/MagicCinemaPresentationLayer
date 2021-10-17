@@ -1,5 +1,12 @@
 package za.ac.cput.view.general;
 
+import za.ac.cput.view.admin.about.UIAdminAbout;
+import za.ac.cput.view.admin.customer.UICustomer;
+import za.ac.cput.view.admin.equipment.UIEmployee;
+import za.ac.cput.view.admin.equipment.UIEquipment;
+import za.ac.cput.view.dashboard.admin.UIAdminDashboard;
+import za.ac.cput.view.login.UILogin;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,8 +18,10 @@ public class AdminSideNavigationBar extends JPanel implements ActionListener {
     private ImageIcon iconLogo, iconDashboard, iconCustomer, iconEmployee, iconEquipment, iconRental, iconFile, iconAbout, iconCurrentUser, iconLogout;
     private JButton btnLogout;
     private Color background, buttonText, addictionColor;
+    private JFrame jFrame;
 
-    public AdminSideNavigationBar(String currentUser, String currentUserAccess, String imagePath, String activeMenu) {
+    public AdminSideNavigationBar(String currentUser, String currentUserAccess, String imagePath, String activeMenu, JFrame jFrame) {
+        this.jFrame = jFrame;
         background = new Color(186,39,94);
         buttonText = Color.WHITE;
         addictionColor = new Color(166, 23, 76);
@@ -101,18 +110,6 @@ public class AdminSideNavigationBar extends JPanel implements ActionListener {
         this.rentalManagement.setIcon(iconRental);
         this.rentalManagement.setIconTextGap(10);
 
-        this.fileManagement = new JButton("File Management");
-        this.fileManagement.addActionListener(this);
-        this.fileManagement.setOpaque(false);
-        this.fileManagement.setContentAreaFilled(false);
-        this.fileManagement.setBorderPainted(false);
-        this.fileManagement.setFocusPainted(false);
-        this.fileManagement.setHorizontalAlignment(SwingConstants.LEFT);
-        this.fileManagement.setForeground(buttonText);
-        this.fileManagement.setFont(new Font("SansSerif Bold", Font.BOLD, 15));
-        this.fileManagement.setIcon(iconFile);
-        this.fileManagement.setIconTextGap(10);
-
         this.about = new JButton("About");
         this.about.addActionListener(this);
         this.about.setOpaque(false);
@@ -128,7 +125,8 @@ public class AdminSideNavigationBar extends JPanel implements ActionListener {
         this.btnLogout = new JButton();
         this.btnLogout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println("---> This should leave to the login page");
+                UILogin login = new UILogin();
+                jFrame.dispose();
             }
         });
         this.btnLogout.setIcon(iconLogout);
@@ -146,8 +144,8 @@ public class AdminSideNavigationBar extends JPanel implements ActionListener {
         menuBar.add(this.employeeManagement);
         menuBar.add(this.equipmentManagement);
         menuBar.add(this.rentalManagement);
-        menuBar.add(this.fileManagement);
         menuBar.add(this.about);
+        menuBar.add(new JLabel());
         menuBar.add(new JLabel());
 
         JPanel panelSouth = new JPanel(new BorderLayout());
@@ -171,25 +169,27 @@ public class AdminSideNavigationBar extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if(e.getActionCommand().equals("Dashboard")) {
-            System.out.println("GO TO DASHBOARD");
+            UIAdminDashboard dashboard = new UIAdminDashboard();
+            this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("Customer Management")) {
-            System.out.println("ADD A CUSTOMER MANAGEMENT");
+            UICustomer customer = new UICustomer();
+            this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("Employee Management")) {
-            System.out.println("GO TO EMPLOYEE MANAGEMENT");
+            UIEmployee employee = new UIEmployee();
+            this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("Equipment Management")) {
-            System.out.println("GO TO EQUIPMENT MANAGEMENT");
+            UIEquipment equipment = new UIEquipment();
+            this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("Rental Management")) {
             System.out.println("GO TO RENTAL MANAGEMENT");
         }
-        else if(e.getActionCommand().equals("File Management")) {
-            System.out.println("GO TO FILE MANAGEMENT");
-        }
         else if(e.getActionCommand().equals("About")) {
-            System.out.println("GO TO ABOUT");
+            UIAdminAbout about = new UIAdminAbout();
+            this.jFrame.dispose();
         }
 
     }
@@ -229,13 +229,6 @@ public class AdminSideNavigationBar extends JPanel implements ActionListener {
             rentalManagement.setForeground(background);
             iconRental = new ImageIcon("images/nav-bar-icons/selected/rental.png");
             rentalManagement.setIcon(iconRental);
-        }
-        if(activeButton.equals("File Management")) {
-            fileManagement.setOpaque(true);
-            fileManagement.setBackground(buttonText);
-            fileManagement.setForeground(background);
-            iconFile = new ImageIcon("images/nav-bar-icons/selected/file.png");
-            fileManagement.setIcon(iconFile);
         }
         if(activeButton.equals("About")) {
             about.setOpaque(true);

@@ -93,7 +93,6 @@ public class ClientAccountFunctionality {
                 Gson g = new Gson();
                 ClientAccount c = g.fromJson(clientAccount.toString(), ClientAccount.class);
                 clientAccountSet.add(c);
-                System.out.println(c.toString());
             }
             return clientAccountSet;
 

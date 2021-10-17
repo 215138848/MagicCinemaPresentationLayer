@@ -91,7 +91,13 @@ public class JDisplayPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Add To Cart")) {
             Integer quantityIndex = (Integer) quantityComboBox.getSelectedItem();
-            CartFunctionality.saveCart(equipmentId, itemCost, quantityIndex);
+            if(quantityIndex != 0) {
+                CartFunctionality.saveCart(equipmentId, itemCost, quantityIndex);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Value 0 cannot be added to a cart.");
+            }
+
         }
 
     }

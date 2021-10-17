@@ -84,7 +84,8 @@ public class RentalFunctionality {
 
     public static void saveRental(EquipmentRental rental) {
         try {
-            final String URL = "http://localhost:8080/rental/rent";
+            System.out.println(rental);
+            final String URL = "http://localhost:8080/rental/create";
             Gson g = new Gson();
             String jsonString = g.toJson(rental);
             String r = post(URL, jsonString);

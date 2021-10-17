@@ -98,7 +98,6 @@ public class CartFunctionality {
                 Gson g = new Gson();
                 Cart c = g.fromJson(cart.toString(), Cart.class);
                 cartSet.add(c);
-                System.out.println(c.toString());
             }
             return cartSet;
 

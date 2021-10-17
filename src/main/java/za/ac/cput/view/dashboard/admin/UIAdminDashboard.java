@@ -45,7 +45,7 @@ public class UIAdminDashboard extends JFrame {
         panelNotificationHolder.add(notificationTwo);
         panelNotificationHolder.add(notificationThree);
 
-        JPanel nav = new AdminSideNavigationBar("Nina Abrev", "Administrator", "images/employee-icons/person.jpg", "Dashboard");
+        JPanel nav = new AdminSideNavigationBar("Nina Abrev", "Administrator", "images/employee-icons/person.jpg", "Dashboard", this);
         nav.setBackground(navColor);
 
         JPanel panelSouth = new JPanel(new GridLayout(1, 1));

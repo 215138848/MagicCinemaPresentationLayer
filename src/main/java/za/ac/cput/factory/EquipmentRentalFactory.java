@@ -3,17 +3,22 @@ package za.ac.cput.factory;
 import za.ac.cput.entity.rent.EquipmentRental;
 import za.ac.cput.util.GenericHelper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EquipmentRentalFactory {
     public static EquipmentRental createEquipmentRental(String clientID, String equipmentID, String employeeNumber,
                                                         String rentalEstimatedEndDate, String rentalEndDate,
-                                                        double costOverTime, int daysOverdue, double setPenalty, int quantity,
-                                                        double rentCost, double finalReturnCost) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                                        int daysOverdue, double setPenalty, int quantity,
+                                                        double rentCost, double finalReturnCost) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         Date date = new Date();
         String currentDate = formatter.format(date);
+
+
+        int difference = GenericHelper.CalculateDifferenceBetweenDates(currentDate, rentalEstimatedEndDate);
+        double costOverTime = rentCost * difference;
 
 
         String rentalID = GenericHelper.generateId();
@@ -35,5 +40,4 @@ public class EquipmentRentalFactory {
 
         return equipmentRental;
     }
-
 }

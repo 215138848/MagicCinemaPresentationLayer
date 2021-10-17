@@ -68,6 +68,13 @@
             <artifactId>okhttp</artifactId>
             <version>4.9.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.toedter/jcalendar -->
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
+
     </dependencies>
     <properties>
         <maven.compiler.source>15</maven.compiler.source>

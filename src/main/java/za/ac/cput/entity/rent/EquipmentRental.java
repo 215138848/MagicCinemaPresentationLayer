@@ -19,20 +19,13 @@ public class EquipmentRental implements Serializable {
     private String equipmentID;
     @NotNull
     private String employeeNumber;
-    @NotNull
     private double rentCost;
-    @NotNull
     private String rentalStartDate;
-    @NotNull
     private String rentalReturnEstimatedDate;
     private String  rentalEndDate;
-    @NotNull
     private int daysOverdue;
-    @NotNull
     private double penalty;
-    @NotNull
     private double costOverTime;
-    @NotNull
     private int quantity;
     private double finalReturnCost;
 

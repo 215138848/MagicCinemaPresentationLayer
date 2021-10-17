@@ -1,5 +1,8 @@
 package za.ac.cput.view.general;
 
+import za.ac.cput.view.about.UIAbout;
+import za.ac.cput.view.customer.UIAddCustomer;
+import za.ac.cput.view.dashboard.sales.UIDashboard;
 import za.ac.cput.view.rentequipment.UIRentEquipment;
 
 import javax.swing.*;
@@ -136,17 +139,20 @@ public class SideNavigationBar extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if(e.getActionCommand().equals("Dashboard")) {
-            System.out.println("GO TO DASHBOARD");
+            UIDashboard dashboard = new UIDashboard();
+            this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("Add New Customer")) {
-            System.out.println("Add New Customer");
+            UIAddCustomer addCustomer = new UIAddCustomer();
+            this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("Rent Equipment")) {
             UIRentEquipment rentEquipment = new UIRentEquipment();
             this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("About")) {
-            System.out.println("GO TO ABOUT");
+            UIAbout about = new UIAbout();
+            this.jFrame.dispose();
         }
 
     }

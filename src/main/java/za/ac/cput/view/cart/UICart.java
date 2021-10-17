@@ -1,5 +1,7 @@
 package za.ac.cput.view.cart;
 
+import com.toedter.calendar.JDateChooser;
+import lombok.SneakyThrows;
 import za.ac.cput.entity.rent.EquipmentRental;
 import za.ac.cput.entity.rentalcart.Cart;
 import za.ac.cput.factory.EquipmentRentalFactory;
@@ -15,13 +17,17 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class UICart extends JFrame implements ActionListener {
-    private JPanel panelNorth, panelCenter, panelSouth;
+    private JPanel panelNorth, panelCenter, panelSouth, panelEast;
     private JLabel lblHeading;
     private JButton btnBack, btnClearCart, btnCheckout;
     private Set<Cart> currentCustomerCart;
+    private JDateChooser jDateChooser1;
 
     public UICart(String customerId) {
         super("Cart Details");
@@ -35,6 +41,7 @@ public class UICart extends JFrame implements ActionListener {
         panelNorth.add(lblHeading);
 
         panelCenter = new JPanel();
+
         Object[] columnNames = { " ", "Name", "Price", "Quantity", "Subtotal" };
         DefaultTableModel model = new DefaultTableModel(new Object[0][0], columnNames);
         for(Cart cart : currentCustomerCart) {
@@ -91,13 +98,24 @@ public class UICart extends JFrame implements ActionListener {
         Set<Cart> CustomerCart = CartFunctionality.getCustomerCartInformation(customerId);
         btnCheckout.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                java.util.Date jud =  jDateChooser1.getDate();
+                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+                String estimateDate = formatter.format(jud);
+
                 if (JOptionPane.showConfirmDialog(null, "Are you sure you want to rent your cart?", "WARNING",
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     for(Cart cart: CustomerCart) {
-                        EquipmentRental rental = EquipmentRentalFactory.createEquipmentRental(
-                                customerId, cart.getEquipmentId(), GenericHelper.getEmployeeId(), "EST END DATE", "END DATE", 100, 2, 15.2, cart.getQuantity(), cart.getSubtotal(),
-                                 (15.2 * 2) + cart.getSubtotal());
-                        RentalFunctionality.saveRental(rental);
+                        EquipmentRental rental = null;
+                        try {
+                            rental = EquipmentRentalFactory.createEquipmentRental(
+                                    customerId, cart.getEquipmentId(), GenericHelper.getEmployeeId(), estimateDate, "", 0, 0, cart.getQuantity(), cart.getSubtotal(),
+                                     0);
+                            RentalFunctionality.saveRental(rental);
+
+                        } catch (ParseException parseException) {
+                            parseException.printStackTrace();
+                        }
+
                     }
                     new UIRentEquipment();
                     dispose();
@@ -113,8 +131,18 @@ public class UICart extends JFrame implements ActionListener {
         panelSouth.add(btnClearCart);
         panelSouth.add(btnCheckout);
 
+
+        panelEast = new JPanel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jDateChooser1.setDateFormatString("dd/MM/yyyy");
+
+        panelEast.add(new JLabel("Select the estimate return day:"));
+        panelEast.add(jDateChooser1);
+
         getContentPane().add(panelNorth, BorderLayout.NORTH);
-        getContentPane().add(panelCenter, BorderLayout.CENTER);
+        getContentPane().add(panelCenter, BorderLayout.EAST);
+        getContentPane().add(panelEast, BorderLayout.CENTER);
         getContentPane().add(panelSouth, BorderLayout.SOUTH);
 
 
