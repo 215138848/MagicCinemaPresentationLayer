@@ -10,6 +10,7 @@ import za.ac.cput.view.dashboard.sales.UIDashboard;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ public class UIRentEquipment extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Color checkoutLineSpacing = new Color(34,34,34);
+        Color navColor = new Color(186,39,94);
 
 
 
@@ -162,9 +164,11 @@ public class UIRentEquipment extends JFrame implements ActionListener {
         ClientList = CustomerFunctionality.getAllClients();
         String[] ClientNameList = CustomerFunctionality.getClientNames();
         JPanel panelWest = new JPanel(new GridLayout(9, 1));
+        panelWest.setBackground(navColor);
         panelWest.setBorder( BorderFactory.createEmptyBorder(100,10,0,10) );
         panelWest.setPreferredSize(new Dimension(200, 300));
         JLabel panelWestLabelUser = new JLabel("SELECT CURRENT CUSTOMER:");
+        panelWestLabelUser.setForeground(Color.WHITE);
         JComboBox comboUsers = new JComboBox(ClientNameList);
         GenericHelper.createUserTracker(ClientList.get(0).getClientID());
         comboUsers.addActionListener (new ActionListener () {
@@ -174,6 +178,9 @@ public class UIRentEquipment extends JFrame implements ActionListener {
                 GenericHelper.createUserTracker(ClientList.get(selectedIndex).getClientID());
             }});
         JButton goToCart = new JButton("Go to cart");
+        goToCart.setBackground(navColor);
+        goToCart.setForeground(Color.WHITE);
+        goToCart.setBorder(new LineBorder(Color.WHITE, 2));
         goToCart.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 new UICart(ClientList.get(comboUsers.getSelectedIndex()).getClientID());
@@ -181,6 +188,9 @@ public class UIRentEquipment extends JFrame implements ActionListener {
             }
         });
         JButton backButton = new JButton("Go To Dashboard");
+        backButton.setBackground(navColor);
+        backButton.setForeground(Color.WHITE);
+        backButton.setBorder(new LineBorder(Color.WHITE, 2));
         backButton.addActionListener (new ActionListener () {
             public void actionPerformed(ActionEvent e) {
                 UIDashboard dashboard = new UIDashboard();

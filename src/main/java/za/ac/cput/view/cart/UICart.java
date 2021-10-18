@@ -34,16 +34,20 @@ public class UICart extends JFrame implements ActionListener {
     public UICart(String customerId) {
         super("Cart Details");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Color navColor = new Color(186,39,94);
+
+
         System.out.println(customerId);
         currentCustomerCart = CartFunctionality.getCustomerCartInformation(customerId);
         panelNorth = new JPanel();
+        panelNorth.setBackground(navColor);
         panelNorth.setBorder(new EmptyBorder(60,20,10,20));
         lblHeading = new JLabel("Cart Details");
         lblHeading.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 32));
         panelNorth.add(lblHeading);
 
         panelCenter = new JPanel();
-
+        panelCenter.setBackground(Color.WHITE);
         Object[] columnNames = { " ", "Name", "Price", "Quantity", "Subtotal" };
         DefaultTableModel model = new DefaultTableModel(new Object[0][0], columnNames);
         for(Cart cart : currentCustomerCart) {
@@ -128,6 +132,7 @@ public class UICart extends JFrame implements ActionListener {
 
 
         panelEast = new JPanel();
+        panelEast.setBackground(Color.WHITE);
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jDateChooser1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jDateChooser1.setDateFormatString("dd/MM/yyyy");
