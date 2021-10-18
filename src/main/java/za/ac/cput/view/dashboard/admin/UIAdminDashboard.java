@@ -50,39 +50,13 @@ public class UIAdminDashboard extends JFrame {
 
         JPanel panelSouth = new JPanel(new GridLayout(1, 1));
         panelSouth.setBackground(Color.WHITE);
-        JLabel heading = new JLabel("Recent Transactions ♡");
-        heading.setFont(new Font("SansSerif Bold", Font.BOLD, 20));
-
-        panelSouth.add(heading);
-        panelSouth.add(new JLabel());
-        panelSouth.add(new JLabel());
-        panelSouth.add(new JLabel());
-
-        //Request data from the database ->
-        String[] columnName = {"RENTAL ID" , "CUSTOMER NAME", "EQUIPMENT ID", "COST", "DATE RENTED"};
-        Object[][] tableData = {
-                {"null", "null", "null", "null", "null"},
-                {"null", "null", "null", "null", "null"}
-        };
 
 
-
-        JTable dataTable = new JTable(tableData, columnName);
-        JScrollPane dataList = new JScrollPane(dataTable);
-        dataList.getViewport().setOpaque(false);
-        dataTable.setOpaque(false);
-        dataTable.setEnabled(false);
-
-        ((DefaultTableCellRenderer)dataTable.getTableHeader().getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.LEFT);
-        dataTable.getTableHeader().setOpaque(false);
-        dataTable.getTableHeader().setBackground(navColor);
 
 
         JPanel transactionHolder = new JPanel(new BorderLayout());
         transactionHolder.setBackground(Color.WHITE);
         transactionHolder.add(panelSouth, BorderLayout.NORTH);
-        transactionHolder.add(dataList, BorderLayout.CENTER);
 
         centerData.add(panelNotificationHolder, BorderLayout.NORTH);
         centerData.add(new JLabel());

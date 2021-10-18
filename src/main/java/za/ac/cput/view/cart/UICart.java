@@ -3,8 +3,10 @@ package za.ac.cput.view.cart;
 import com.toedter.calendar.JDateChooser;
 import lombok.SneakyThrows;
 import za.ac.cput.entity.rent.EquipmentRental;
+import za.ac.cput.entity.rent.RentItems;
 import za.ac.cput.entity.rentalcart.Cart;
 import za.ac.cput.factory.EquipmentRentalFactory;
+import za.ac.cput.factory.RentItemsFactory;
 import za.ac.cput.service.CartFunctionality;
 import za.ac.cput.service.EquipmentFunctionality;
 import za.ac.cput.service.RentalFunctionality;
@@ -105,16 +107,9 @@ public class UICart extends JFrame implements ActionListener {
                 if (JOptionPane.showConfirmDialog(null, "Are you sure you want to rent your cart?", "WARNING",
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     for(Cart cart: CustomerCart) {
-                        EquipmentRental rental = null;
-                        try {
-                            rental = EquipmentRentalFactory.createEquipmentRental(
-                                    customerId, cart.getEquipmentId(), GenericHelper.getEmployeeId(), estimateDate, "", 0, 0, cart.getQuantity(), cart.getSubtotal(),
-                                     0);
-                            RentalFunctionality.saveRental(rental);
-
-                        } catch (ParseException parseException) {
-                            parseException.printStackTrace();
-                        }
+                        RentItems rentItem;
+                        rentItem = RentItemsFactory.createRentItems(customerId, cart.getEquipmentId(), cart.getSubtotal(), estimateDate, "", 0, cart.getQuantity(), 0);
+                        RentalFunctionality.saveRental(rentItem);
 
                     }
                     new UIRentEquipment();

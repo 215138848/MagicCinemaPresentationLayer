@@ -132,15 +132,23 @@ public class GenericHelper {
 
     }
 
-    public static int CalculateDifferenceBetweenDates(String dateOne, String dateTwo) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-        Date firstDate = sdf.parse(dateOne);
-        Date secondDate = sdf.parse(dateTwo);
+    public static int CalculateDifferenceBetweenDates(String dateOne, String dateTwo) {
 
-        long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+            Date firstDate = sdf.parse(dateOne);
+            Date secondDate = sdf.parse(dateTwo);
 
+            long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
-        return (int) diff;
+            return (int) diff;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
     }
 }
