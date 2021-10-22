@@ -175,12 +175,12 @@ public class UILogin extends JFrame implements ActionListener {
 
                 if (employee != null) {
                     System.out.println(employee.getRole());
+                    GenericHelper.createEmployeeTracker(employee.getEmployeeNumber());
                     if (employee.getRole().equals("2")) {
                         UIAdminDashboard adminUI = new UIAdminDashboard();
                     } else {
                         UIDashboard homeGUI = new UIDashboard();
                     }
-                    GenericHelper.createEmployeeTracker(employee.getEmployeeNumber());
                     this.dispose();
                 }
                 else {

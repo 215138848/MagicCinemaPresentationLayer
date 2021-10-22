@@ -1,5 +1,8 @@
 package za.ac.cput.view.general;
 
+import za.ac.cput.entity.Employee;
+import za.ac.cput.service.EmployeeFunctionality;
+import za.ac.cput.util.GenericHelper;
 import za.ac.cput.view.admin.about.UIAdminAbout;
 import za.ac.cput.view.admin.customer.UICustomer;
 import za.ac.cput.view.admin.equipment.UIEmployee;
@@ -26,6 +29,8 @@ public class AdminSideNavigationBar extends JPanel implements ActionListener {
         buttonText = Color.WHITE;
         addictionColor = new Color(166, 23, 76);
 
+        Employee user = EmployeeFunctionality.getEmployeeById(GenericHelper.getEmployeeId());
+        currentUser = user.getUsername();
         this.userData = new JLabel("<html>" + currentUser +"<br/>" + currentUserAccess + "</html>");
         this.userData.setForeground(buttonText);
         this.userData.setFont(new Font("SansSerif Bold", Font.BOLD, 12));

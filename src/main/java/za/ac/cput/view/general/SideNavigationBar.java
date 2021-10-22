@@ -1,8 +1,12 @@
 package za.ac.cput.view.general;
 
+import za.ac.cput.entity.Employee;
+import za.ac.cput.service.EmployeeFunctionality;
+import za.ac.cput.util.GenericHelper;
 import za.ac.cput.view.about.UIAbout;
 import za.ac.cput.view.customer.UIAddCustomer;
 import za.ac.cput.view.dashboard.sales.UIDashboard;
+import za.ac.cput.view.login.UILogin;
 import za.ac.cput.view.rentequipment.UIRentEquipment;
 
 import javax.swing.*;
@@ -24,6 +28,9 @@ public class SideNavigationBar extends JPanel implements ActionListener {
         buttonText = Color.WHITE;
         addictionColor = new Color(166, 23, 76);
 
+        Employee user = EmployeeFunctionality.getEmployeeById(GenericHelper.getEmployeeId());
+        currentUser = user.getUsername();
+        currentUserAccess = "Sale Agent";
         this.userData = new JLabel("<html>" + currentUser +"<br/>" + currentUserAccess + "</html>");
         this.userData.setForeground(buttonText);
         this.userData.setFont(new Font("SansSerif Bold", Font.BOLD, 12));
@@ -97,6 +104,8 @@ public class SideNavigationBar extends JPanel implements ActionListener {
         this.btnLogout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("---> This should leave to the login page");
+                UILogin login = new UILogin();
+                jFrame.dispose();
             }
         });
         this.btnLogout.setIcon(iconLogout);
