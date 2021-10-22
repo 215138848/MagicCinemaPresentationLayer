@@ -7,6 +7,7 @@ import za.ac.cput.view.admin.about.UIAdminAbout;
 import za.ac.cput.view.admin.customer.UICustomer;
 import za.ac.cput.view.admin.equipment.UIEmployee;
 import za.ac.cput.view.admin.equipment.UIEquipment;
+import za.ac.cput.view.admin.rental.UIRental;
 import za.ac.cput.view.dashboard.admin.UIAdminDashboard;
 import za.ac.cput.view.login.UILogin;
 
@@ -190,7 +191,8 @@ public class AdminSideNavigationBar extends JPanel implements ActionListener {
             this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("Rental Management")) {
-            System.out.println("GO TO RENTAL MANAGEMENT");
+            UIRental rental = new UIRental();
+            this.jFrame.dispose();
         }
         else if(e.getActionCommand().equals("About")) {
             UIAdminAbout about = new UIAdminAbout();
